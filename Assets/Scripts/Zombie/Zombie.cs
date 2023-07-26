@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
 public class Zombie : MonoBehaviour
 {
     [SerializeField] private GameObject player;
@@ -13,31 +12,37 @@ public class Zombie : MonoBehaviour
     private Animator animator;
     private NavMeshAgent agent;
     private Vector3 lastedPlayerPosition = Vector3.zero;
-    private float zombieChaseSpeed = 3.66f;
+    [SerializeField] private float zombieChaseSpeed = 3.66f;
     private bool isCloseToTarget;
-    private State state = State.wonder;
-    void Start()
+    public State state = State.wonder;
+
+    private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
 
-        if (target==null)
-            target = GetPortalPoint();    
+        if (target == null)
+            target = GetPortalPoint();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         isCloseToTarget = CheckDistance();
         CheckCanSeePlayer();
-
+        if (GameManager.singletion.isPlayerHide)
+        {
+            zombieDetection.isPlayerHide = GameManager.singletion.isPlayerHide;
+            animator.SetBool("IsPlayer", false);
+            agent.speed = 1.3f;
+            state = State.wonder;
+        }
         if (state == State.wonder)
         {
             if (isCloseToTarget == true)
             {
                 target = GetPortalPoint();
             }
-            
         }
         else if (state == State.clueless)
         {
@@ -46,6 +51,7 @@ public class Zombie : MonoBehaviour
             if (isCloseToTarget == true)
             {
                 state = State.wonder;
+
                 target = GetPortalPoint();
             }
         }
@@ -56,6 +62,7 @@ public class Zombie : MonoBehaviour
 
         agent.SetDestination(target.transform.position);
     }
+
     private void CheckCanSeePlayer()
     {
         if (zombieDetection.isCanSeePlayer)
@@ -64,7 +71,6 @@ public class Zombie : MonoBehaviour
             agent.speed = zombieChaseSpeed;
             animator.SetBool("IsPlayer", true);
             lastedPlayerPosition = player.transform.position;
-            
         }
         else
         {
@@ -80,9 +86,10 @@ public class Zombie : MonoBehaviour
             }
             state = State.wonder;
             animator.SetBool("IsPlayer", false);
-            agent.speed = 1.2f;
+            agent.speed = 1.3f;
         }
     }
+
     private bool CheckDistance()
     {
         Vector3 v = target.transform.position - transform.position;
@@ -98,13 +105,15 @@ public class Zombie : MonoBehaviour
             return false;
         }
     }
+
     private Transform GetPortalPoint()
     {
         int r = Random.Range(0, portalPoints.Length);
         return portalPoints[r];
     }
-    enum State
+
+    public enum State
     {
-        wonder,chase,clueless
+        wonder, chase, clueless
     }
 }

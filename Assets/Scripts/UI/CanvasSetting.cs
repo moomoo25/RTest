@@ -17,6 +17,7 @@ public class CanvasSetting : MonoBehaviour
     [SerializeField] private CanvasMessageSetting canvasMessageSetting;
     [SerializeField] private CanvasKeySetting canvasKeySetting;
     [SerializeField] private Password canvasPasswordSetting;
+    [SerializeField] private CanvasObjectiveSetting canvasObjective;
     private void Awake()
     {
         singleton = this;
@@ -71,6 +72,10 @@ public class CanvasSetting : MonoBehaviour
     public void AddKey(int i)
     {
         canvasKeySetting.AddKeyByIndex(i);
+    }
+    public void ChangeObjective(string text)
+    {
+        canvasObjective.ChangeText(text);
     }
     public void DisableAllCanvas()
     {

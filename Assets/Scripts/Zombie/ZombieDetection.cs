@@ -9,9 +9,18 @@ public class ZombieDetection : MonoBehaviour
     public bool isLos;
 
     public bool isCanSeePlayer;
+    public bool isPlayerHide;
     // Update is called once per frame
     void Update()
     {
+        if (isPlayerHide)
+        {
+            isRayCastDetect = false;
+            isLos = false;
+            isCanSeePlayer = false;
+            return;
+        }
+           
         RayCastToPlayer();
         if (isRayCastDetect && isLos)
         {

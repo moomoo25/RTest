@@ -183,6 +183,7 @@ namespace StarterAssets
             if (canMove == false)
             {
                 _speed = 0;
+                _animator.SetFloat(_animIDSpeed, _speed);
                 Cursor.lockState = CursorLockMode.None;
             }
             else
