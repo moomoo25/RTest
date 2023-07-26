@@ -96,6 +96,7 @@ public class Zombie : MonoBehaviour
             agent.speed = zombieChaseSpeed;
             animator.SetBool("IsPlayer", true);
             lastedPlayerPosition = player.transform.position;
+            CheckCatchPlayer();
         }
         else
         {
@@ -115,7 +116,14 @@ public class Zombie : MonoBehaviour
             agent.speed = 1.3f;
         }
     }
-
+    private void CheckCatchPlayer()
+    {
+        bool isNear = CheckDistance();
+        if (isNear)
+        {
+            GameManager.singletion.EndGame("You died");
+        }
+    }
     private bool CheckDistance()
     {
         Vector3 v = target.transform.position - transform.position;
