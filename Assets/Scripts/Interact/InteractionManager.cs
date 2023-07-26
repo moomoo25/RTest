@@ -23,7 +23,7 @@ public class InteractionManager : MonoBehaviour
     public void RemoveInteract()
     {
         interactableObject = null;
-        CanvasSetting.singleton.DisableAllCanvas();
+        CanvasSetting.singleton.DisableInteract();
     }
     public void OnInteract()
     {

@@ -5,12 +5,15 @@ using UnityEngine.AI;
 public class Zombie : MonoBehaviour
 {
     [SerializeField] private GameObject player;
-    [SerializeField] private Transform target;
+    private Transform target;
     [SerializeField] private Transform playerCenterPos;
+    [SerializeField] private Transform dumpPosition;
     [SerializeField] private ZombieDetection zombieDetection;
     [SerializeField] private Transform[] portalPoints;
     private Animator animator;
     private NavMeshAgent agent;
+    private Vector3 lastedPlayerPosition = Vector3.zero;
+    private float zombieChaseSpeed = 3.66f;
     private bool isCloseToTarget;
     private State state = State.wonder;
     void Start()
@@ -36,6 +39,16 @@ public class Zombie : MonoBehaviour
             }
             
         }
+        else if (state == State.clueless)
+        {
+            agent.speed = zombieChaseSpeed;
+            animator.SetBool("IsPlayer", true);
+            if (isCloseToTarget == true)
+            {
+                state = State.wonder;
+                target = GetPortalPoint();
+            }
+        }
         else
         {
             target = player.transform;
@@ -48,11 +61,23 @@ public class Zombie : MonoBehaviour
         if (zombieDetection.isCanSeePlayer)
         {
             state = State.chase;
+            agent.speed = zombieChaseSpeed;
             animator.SetBool("IsPlayer", true);
-            agent.speed = 3;
+            lastedPlayerPosition = player.transform.position;
+            
         }
         else
         {
+            if (state == State.clueless)
+                return;
+            if (lastedPlayerPosition != Vector3.zero)
+            {
+                state = State.clueless;
+                dumpPosition.position = lastedPlayerPosition;
+                target = dumpPosition;
+                lastedPlayerPosition = Vector3.zero;
+                return;
+            }
             state = State.wonder;
             animator.SetBool("IsPlayer", false);
             agent.speed = 1.2f;
@@ -80,6 +105,6 @@ public class Zombie : MonoBehaviour
     }
     enum State
     {
-        wonder,chase
+        wonder,chase,clueless
     }
 }
