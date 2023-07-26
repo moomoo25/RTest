@@ -11,6 +11,7 @@ public class ExitDoor : Interactable
         {
             moveDown = true;
             CanvasSetting.singleton.EnableMessage("Run to exit");
+            GameManager.singletion.ChasePlayer();
            // Destroy(this.gameObject);
         }
         else
@@ -26,7 +27,7 @@ public class ExitDoor : Interactable
         Vector3 v = transform.position;
         if (v.y > -10)
         {
-            v.y = v.y - Time.deltaTime;
+            v.y = v.y - Time.deltaTime*5;
         }
         transform.position = v;
     }

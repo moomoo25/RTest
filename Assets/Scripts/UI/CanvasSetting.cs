@@ -12,6 +12,7 @@ public class CanvasSetting : MonoBehaviour
     [SerializeField] private GameObject keyCanvas;
     [SerializeField] private GameObject passwordCanvas;
     [SerializeField] private GameObject colorCanvas;
+    [SerializeField] private GameObject endGameCanvas;
     [Space(20)]
     [SerializeField] private CanvasNoteSetting canvasNoteSetting;
     [SerializeField] private CanvasMessageSetting canvasMessageSetting;
@@ -77,6 +78,11 @@ public class CanvasSetting : MonoBehaviour
     {
         canvasObjective.ChangeText(text);
     }
+    public void EnableEndGameCanvas(string text)
+    {
+        endGameCanvas.SetActive(true);
+        endGameCanvas.GetComponent<CanvasNoteSetting>().SetNote(text);
+    }
     public void DisableAllCanvas()
     {
         colorCanvas.SetActive(false);
@@ -84,5 +90,6 @@ public class CanvasSetting : MonoBehaviour
         noteCanvas.SetActive(false);
         messageCanvas.SetActive(false);
         passwordCanvas.SetActive(false);
+        endGameCanvas.SetActive(false);
     }
 }

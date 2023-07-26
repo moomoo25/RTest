@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager singletion;
-    public ThirdPersonController thirdPersonController; 
+    public ThirdPersonController thirdPersonController;
+    public Zombie zombie;
     public InteractionManager interactionManager;
     public GameObject playerMesh;
     public bool isPlayerHide;
@@ -30,6 +31,20 @@ public class GameManager : MonoBehaviour
         thirdPersonController.TriggerMovement();
         playerMesh.SetActive(!playerMesh.activeInHierarchy);
         isPlayerHide = !playerMesh.activeInHierarchy;
+    }
+    public void ChasePlayer()
+    {
+        zombie.state = Zombie.State.superchase;
+    }
+    public void EndGame(string text)
+    {
+        if (gameState == GameState.end)
+            return;
+
+        thirdPersonController.TriggerMovement();
+        gameState = GameState.end;
+        zombie.state = Zombie.State.end;
+        CanvasSetting.singleton.EnableEndGameCanvas(text);
     }
     public void AddKey(int i)
     {
@@ -58,6 +73,10 @@ public class GameManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     enum GameState
     {

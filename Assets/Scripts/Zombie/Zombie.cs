@@ -12,7 +12,7 @@ public class Zombie : MonoBehaviour
     private Animator animator;
     private NavMeshAgent agent;
     private Vector3 lastedPlayerPosition = Vector3.zero;
-    [SerializeField] private float zombieChaseSpeed = 3.66f;
+    [SerializeField] private float zombieChaseSpeed = 6.16f;
     private bool isCloseToTarget;
     public State state = State.wonder;
 
@@ -28,8 +28,26 @@ public class Zombie : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (state == State.end)
+        {
+            agent.speed = 0f;
+            animator.SetBool("IsPlayer", false);
+            animator.SetBool("IsStop", false);
+            return;
+        }
+
         isCloseToTarget = CheckDistance();
+
+        if (state == State.superchase)
+        {
+            agent.SetDestination(player.transform.position);
+            agent.speed = 7.2f;
+            animator.SetBool("IsPlayer", true);
+            return;
+        }
+
         CheckCanSeePlayer();
+
         if (GameManager.singletion.isPlayerHide)
         {
             zombieDetection.isPlayerHide = GameManager.singletion.isPlayerHide;
@@ -114,6 +132,6 @@ public class Zombie : MonoBehaviour
 
     public enum State
     {
-        wonder, chase, clueless
+        wonder, chase, clueless , end , superchase
     }
 }
