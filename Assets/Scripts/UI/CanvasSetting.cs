@@ -9,9 +9,11 @@ public class CanvasSetting : MonoBehaviour
     [SerializeField] private GameObject interactCanvas;
     [SerializeField] private GameObject noteCanvas;
     [SerializeField] private GameObject messageCanvas;
+    [SerializeField] private GameObject keyCanvas;
     [Space(20)]
     [SerializeField] private CanvasNoteSetting canvasNoteSetting;
     [SerializeField] private CanvasMessageSetting canvasMessageSetting;
+    [SerializeField] private CanvasKeySetting canvasKeySetting;
     private void Awake()
     {
         singleton = this;
@@ -42,6 +44,10 @@ public class CanvasSetting : MonoBehaviour
             return;
         messageCanvas.SetActive(true);
         canvasMessageSetting.SetMessage(text);
+    }
+    public void AddKey(int i)
+    {
+        canvasKeySetting.AddKeyByIndex(i);
     }
     public void DisableAllCanvas()
     {
