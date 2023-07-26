@@ -8,5 +8,6 @@ public class Note : Interactable
     public override void Interact()
     {
         CanvasSetting.singleton.EnableNote(text);
+        SoundManager.singleton.PlayPaperSound();
     }
 }

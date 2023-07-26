@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ExitDoor : Interactable
 {
+    [SerializeField] private AudioSource audioSource;
     bool moveDown;
     public override void Interact()
     {
@@ -12,6 +13,7 @@ public class ExitDoor : Interactable
             moveDown = true;
             CanvasSetting.singleton.EnableMessage("Run to exit");
             GameManager.singletion.ChasePlayer();
+            audioSource.Play();
            // Destroy(this.gameObject);
         }
         else
