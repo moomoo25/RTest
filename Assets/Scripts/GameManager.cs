@@ -25,9 +25,11 @@ public class GameManager : MonoBehaviour
     }
     public void AddKey(int i)
     {
+        CanvasSetting.singleton.AddKey(i);
         if (i == 0)
         {
             hasYellowKey = true;
+           
         }
         else if (i == 1)
         {

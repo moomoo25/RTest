@@ -159,6 +159,7 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
             if (canMove == false)
             {
+                _speed = 0;
                 return;
             }
             Move();

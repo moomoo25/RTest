@@ -10,10 +10,13 @@ public class CanvasSetting : MonoBehaviour
     [SerializeField] private GameObject noteCanvas;
     [SerializeField] private GameObject messageCanvas;
     [SerializeField] private GameObject keyCanvas;
+    [SerializeField] private GameObject passwordCanvas;
+    [SerializeField] private GameObject colorCanvas;
     [Space(20)]
     [SerializeField] private CanvasNoteSetting canvasNoteSetting;
     [SerializeField] private CanvasMessageSetting canvasMessageSetting;
     [SerializeField] private CanvasKeySetting canvasKeySetting;
+    [SerializeField] private Password canvasPasswordSetting;
     private void Awake()
     {
         singleton = this;
@@ -38,6 +41,26 @@ public class CanvasSetting : MonoBehaviour
         GameManager.singletion.TriggerPlayerMovement();
         noteCanvas.SetActive(false);
     }
+    public void EnablePassword()
+    {
+        GameManager.singletion.TriggerPlayerMovement();
+        passwordCanvas.SetActive(true);
+    }
+    public void DisablePassword()
+    {
+        GameManager.singletion.TriggerPlayerMovement();
+        passwordCanvas.SetActive(false);
+    }
+    public void EnableColor()
+    {
+        GameManager.singletion.TriggerPlayerMovement();
+        colorCanvas.SetActive(true);
+    }
+    public void DisableColor()
+    {
+        GameManager.singletion.TriggerPlayerMovement();
+        colorCanvas.SetActive(false);
+    }
     public void EnableMessage(string text)
     {
         if (messageCanvas.activeInHierarchy)
@@ -51,8 +74,10 @@ public class CanvasSetting : MonoBehaviour
     }
     public void DisableAllCanvas()
     {
+        colorCanvas.SetActive(false);
         interactCanvas.SetActive(false);
         noteCanvas.SetActive(false);
         messageCanvas.SetActive(false);
+        passwordCanvas.SetActive(false);
     }
 }
