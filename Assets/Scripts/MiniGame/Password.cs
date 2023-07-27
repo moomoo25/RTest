@@ -12,15 +12,17 @@ public class Password : MonoBehaviour
     {
         if(inputField.text == password)
         {
-            Debug.Log("Correct");
+           // Debug.Log("Correct");
             GameManager.singletion.AddKey(0);
             keyObject.SetActive(false);
             GameManager.singletion.interactionManager.RemoveInteract();
             CanvasSetting.singleton.DisablePassword();
+            SoundManager.singleton.PlayCorrectSound();
         }
         else
         {
-            Debug.Log("Wrong");
+            //Debug.Log("Wrong");
+            SoundManager.singleton.PlayWrongSound();
         }
     }
 }

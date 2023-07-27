@@ -92,6 +92,8 @@ public class CanvasSetting : MonoBehaviour
     }
     public void EnableEndGameCanvas(string text)
     {
+        DisableAllCanvas();
+        GameManager.singletion.interactionManager.RemoveInteract();
         endGameCanvas.SetActive(true);
         endGameCanvas.GetComponent<CanvasNoteSetting>().SetNote(text);
     }

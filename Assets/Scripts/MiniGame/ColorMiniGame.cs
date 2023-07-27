@@ -42,11 +42,13 @@ public class ColorMiniGame : MonoBehaviour
             return;
         }
        bool isDone = checkPassword();
+
         if (isDone)
         {
             print("Done");
             CanvasSetting.singleton.DisableColor();
             GameManager.singletion.AddKey(1);
+            SoundManager.singleton.PlayCorrectSound();
             GameManager.singletion.interactionManager.RemoveInteract();
             redKeyObject.SetActive(false);
         }
