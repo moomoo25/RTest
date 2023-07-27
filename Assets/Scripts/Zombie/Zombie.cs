@@ -12,6 +12,7 @@ public class Zombie : MonoBehaviour
     private Animator animator;
     private NavMeshAgent agent;
     private Vector3 lastedPlayerPosition = Vector3.zero;
+    [SerializeField] private float zombieWalkSpeed = 1.4f;
     [SerializeField] private float zombieChaseSpeed = 6.16f;
     private bool isCloseToTarget;
     private bool isPlayScream;
@@ -46,8 +47,9 @@ public class Zombie : MonoBehaviour
         {
             Scream();
             agent.SetDestination(player.transform.position);
-            agent.speed = 7.2f;
+            agent.speed = 7.15f;
             animator.SetBool("IsPlayer", true);
+            CheckCatchPlayer();
             return;
         }
 
@@ -58,7 +60,7 @@ public class Zombie : MonoBehaviour
         {
             
             animator.SetBool("IsPlayer", false);
-            agent.speed = 1.3f;
+            agent.speed = zombieWalkSpeed;
             state = State.wonder;
         }
         if (state == State.wonder)
@@ -113,7 +115,7 @@ public class Zombie : MonoBehaviour
             isPlayScream = false;
             state = State.wonder;
             animator.SetBool("IsPlayer", false);
-            agent.speed = 1.3f;
+            agent.speed = zombieWalkSpeed;
         }
     }
     private void CheckCatchPlayer()

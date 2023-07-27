@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip audioPaperClip;
     public AudioClip audioClip;
+    public AudioClip audioWrongClip;
+    public AudioClip audioCorrectClip;
     private void Awake()
     {
         singleton = this;
@@ -19,5 +21,13 @@ public class SoundManager : MonoBehaviour
     public void PlayPaperSound()
     {
         audioSource.PlayOneShot(audioPaperClip);
+    }
+    public void PlayWrongSound()
+    {
+        audioSource.PlayOneShot(audioWrongClip);
+    }
+    public void PlayCorrectSound()
+    {
+        audioSource.PlayOneShot(audioCorrectClip);
     }
 }

@@ -11,9 +11,11 @@ public class CanvasSetting : MonoBehaviour
     [SerializeField] private GameObject messageCanvas;
     [SerializeField] private GameObject keyCanvas;
     [SerializeField] private GameObject passwordCanvas;
+    [SerializeField] private GameObject swipeCardCanvas;
     [SerializeField] private GameObject colorCanvas;
     [SerializeField] private GameObject endGameCanvas;
     [Space(20)]
+    [Header("CanvasSetting")]
     [SerializeField] private CanvasNoteSetting canvasNoteSetting;
     [SerializeField] private CanvasMessageSetting canvasMessageSetting;
     [SerializeField] private CanvasKeySetting canvasKeySetting;
@@ -63,6 +65,16 @@ public class CanvasSetting : MonoBehaviour
         GameManager.singletion.TriggerPlayerMovement();
         colorCanvas.SetActive(false);
     }
+    public void EnableSwipeCard()
+    {
+        GameManager.singletion.TriggerPlayerMovement();
+        swipeCardCanvas.SetActive(true);
+    }
+    public void DisableSwipeCard()
+    {
+        GameManager.singletion.TriggerPlayerMovement();
+        swipeCardCanvas.SetActive(false);
+    }
     public void EnableMessage(string text)
     {
         if (messageCanvas.activeInHierarchy)
@@ -90,6 +102,7 @@ public class CanvasSetting : MonoBehaviour
         noteCanvas.SetActive(false);
         messageCanvas.SetActive(false);
         passwordCanvas.SetActive(false);
+        swipeCardCanvas.SetActive(false);
         endGameCanvas.SetActive(false);
     }
 }
